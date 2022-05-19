@@ -1,5 +1,8 @@
 package com.cg.deptemp.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,24 @@ public class DepartmentServiceImpl implements DepartmentService{
 	@Override
 	public void addDepartment(Department dept) {
 		deptrepo.save(dept);		
+	}
+	@Override
+	public List<Department> viewAllDepts() {
+		return deptrepo.findAll();
+	}
+	@Override 
+	public Optional<Department> getDeptById(int deptno) {
+		Optional<Department> dept = deptrepo.findById(deptno); 
+		return dept;
+	}
+	@Override
+	public void updateDepartment(Department dept) {
+		deptrepo.save(dept);
+		
+	}
+	@Override
+	public void deleteDepartment(int deptno) {
+		deptrepo.deleteById(deptno); 		
 	}
 
 }
