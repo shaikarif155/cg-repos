@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.deptemp.entities.Department;
+import com.cg.deptemp.exceptions.DepartmentAlreadyExistException;
+import com.cg.deptemp.exceptions.DepartmentNotFoundException;
 import com.cg.deptemp.repository.DepartmentRepository;
 
 @Service
@@ -16,6 +18,10 @@ public class DepartmentServiceImpl implements DepartmentService{
 	DepartmentRepository deptrepo;
 	@Override
 	public void addDepartment(Department dept) {
+		Optional<Department> department = deptrepo.findById(dept.getDeptno());
+		System.out.println(department);
+		if(!department.isEmpty())
+			throw new DepartmentAlreadyExistException();
 		deptrepo.save(dept);		
 	}
 	@Override
@@ -24,7 +30,9 @@ public class DepartmentServiceImpl implements DepartmentService{
 	}
 	@Override 
 	public Optional<Department> getDeptById(int deptno) {
-		Optional<Department> dept = deptrepo.findById(deptno); 
+		Optional<Department> dept = deptrepo.findById(deptno);
+		if(dept.isEmpty())
+			throw new DepartmentNotFoundException();
 		return dept;
 	}
 	@Override

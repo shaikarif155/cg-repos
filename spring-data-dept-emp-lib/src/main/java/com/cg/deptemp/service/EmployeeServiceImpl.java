@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.cg.deptemp.dto.EmployeeDto;
 import com.cg.deptemp.entities.Department;
 import com.cg.deptemp.entities.Employee;
+import com.cg.deptemp.exceptions.DepartmentNotFoundException;
 import com.cg.deptemp.repository.DepartmentRepository;
 import com.cg.deptemp.repository.EmployeeRepository;
 
@@ -22,13 +23,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int addEmployee(EmployeeDto empdto) {
 		// Get Department object by passing deptno from empdto
 		  Department dept = deptrepo.getDeptById(empdto.getDeptno());
+		  if(dept==null)
+			  throw new DepartmentNotFoundException();
+		  
 		  Employee emp = new Employee();
 		  emp.setEmpname(empdto.getEmpname());
 		  emp.setJob(empdto.getJob());
 		  emp.setDoj(empdto.getDoj());
 		  emp.setSalary(empdto.getSalary());
 		  emp.setDept(dept);
-		  emprepo.save(emp);
+		  //emprepo.save(emp);
+		  System.out.println(empdto); 
 		 return emp.getEmpno();
 	}
 
