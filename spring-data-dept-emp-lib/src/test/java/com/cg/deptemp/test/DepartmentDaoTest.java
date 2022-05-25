@@ -13,7 +13,7 @@ import com.cg.deptemp.entities.Department;
 import com.cg.deptemp.repository.DepartmentRepository;
 
 @SpringBootTest
-public class DepartmentDaoTest {
+class DepartmentDaoTest {
 	@Autowired
 	DepartmentRepository deptrepo;
 	
@@ -25,7 +25,7 @@ public class DepartmentDaoTest {
 	}
 	
 	@Test
-	public void testGetAllItemsNotNull() {
+	void testGetAllItemsNotNull() {
 		List<Department> deptlist = deptrepo.findAll();
 		assertNotNull(deptlist);
 	}
